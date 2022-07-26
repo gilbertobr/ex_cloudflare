@@ -6,6 +6,7 @@ WORKDIR /app
 COPY ./ /app
 RUN cd /app && \
 mix local.hex --force && \
+mix local.rebar --force && \
 mix deps.get && \
 mix compile
 CMD mix run -e "IO.inspect($FUNCTION, limit: :infinity)"
