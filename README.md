@@ -44,7 +44,9 @@ ExCloudflare.update_dns_zone(
      %{content: "8.8.8.8", 
           type: "A", 
           name: "subdomain1", 
-          ttl: 60
+          ttl: 60,
+          comment: "My Comment",
+          proxied: false
      }
 )
 ```

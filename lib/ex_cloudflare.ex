@@ -50,7 +50,7 @@ def get_dnsrecord(zone_name) do
           |> Enum.filter(& &1.name == zone_name) 
           |> Enum.at(0)
 
-  case Cloudflare.DnsRecord.index(params: [zone_id: zone.id]) do
+  case Cloudflare.DnsRecord.index(params: [zone_id: zone.id], query: [per_page: 10000]) do
     {:ok, %Tesla.Env{body: body, status: 200}} ->
       for dns <- body["result"] do
         %{
@@ -165,6 +165,8 @@ def update_dns_zone(id_body, zone_name, body) do
       content: body.content, 
       type: body.type, 
       name: body.name, 
+      comment: body.comment,
+      proxied: body.proxied,
       ttl: body.ttl}, params: [zone_id: zone.id])
 
     case update do
