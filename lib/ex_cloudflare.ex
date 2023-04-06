@@ -161,13 +161,7 @@ def update_dns_zone(id_body, zone_name, body) do
   if dns == nil do
     IO.puts("DNS não encontrado!")
   else
-    update = Cloudflare.DnsRecord.update(dns.id, %{
-      content: body.content, 
-      type: body.type, 
-      name: body.name, 
-      comment: body.comment,
-      proxied: body.proxied,
-      ttl: body.ttl}, params: [zone_id: zone.id])
+    update = Cloudflare.DnsRecord.update(dns.id, body, params: [zone_id: zone.id])
 
     case update do
       {:ok, %Tesla.Env{body: body, status: 200}} ->
